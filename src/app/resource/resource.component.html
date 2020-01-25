@@ -80,7 +80,8 @@
                   </div>
                 </div>
                 <ng-template #lessonBanner>
-                  <img class="chellenge__compleate--video-content" *ngIf="lesson.lesson_image != ''" src="{{ lesson.lesson_image }}" alt="img" />
+                  <!-- <img class="chellenge__compleate--video-content" *ngIf="lesson.lesson_image != ''" src="{{ lesson.lesson_image }}" alt="img" /> -->
+                  <div *ngIf="lesson.lesson_image != ''" class="chellenge__compleate--video-content lesson-banner-img" [ngStyle]="{'background-image':'url(' + lesson.lesson_image + ')'}"></div>
                 </ng-template>
                 </div>
               </figure>

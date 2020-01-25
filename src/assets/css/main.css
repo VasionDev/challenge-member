@@ -1517,6 +1517,7 @@ a:hover {
   .ch-m-better-btn {
     max-width: unset;
   }
+
 }
 
 .ch-member-acu-20-28 {
@@ -1827,6 +1828,15 @@ a:hover {
   background: none;
 }
 
+.ng-sidebar {
+  z-index: 999999 !important;
+}
+
+.lesson-banner-img {
+  background-position: center center;
+  background-size: cover;
+  height: 385px;
+}
 
 @media (max-width: 440px) {
   .ch-btn-success,
@@ -1834,9 +1844,7 @@ a:hover {
   .ch-btn-invite {
     max-width: unset;
   }
-}
-
-
-.ng-sidebar {
-  z-index: 999999 !important;
+  .lesson-banner-img {
+    height: 250px;
+  }
 }
