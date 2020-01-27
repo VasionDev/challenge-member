@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   posts: any;
   indexPost: any;
   indexSlide: any;
-  completePercent: any;
+  completePercent: any = 0;
   nextStartLesson: any;
   lastEndedPostIndex: any;
   userLoggedIn = true;
@@ -59,6 +59,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
 
     // this.checkNavigator();
+    // console.log(this.completePercent);
 
     this.nextStartLesson = {
       lesson_id: ''
@@ -97,6 +98,7 @@ export class HomeComponent implements OnInit {
       this.updateNextStartLesson(lastEndedPostLessons);
       this.completedLesson = JSON.parse(localStorage.getItem('Lesson'));
       this.completedIndex = JSON.parse(localStorage.getItem('Index'));
+      // console.log(this.completedLesson.length, totalLesson);
       if (this.completedLesson !== null) {
         this.completePercent = ((100 * this.completedLesson.length) / totalLesson).toFixed();
       } else {
@@ -145,8 +147,8 @@ export class HomeComponent implements OnInit {
       if (user.mvuser_id !== undefined && user.mvuser_id !== '') {
         localStorage.setItem('UserID', user.mvuser_id);
         const value = JSON.parse(user.user_learn_data);
-        localStorage.setItem('Index', JSON.stringify(value.indexArray));
-        localStorage.setItem('Lesson', JSON.stringify(value.lessonArray));
+        // localStorage.setItem('Index', JSON.stringify(value.indexArray));
+        // localStorage.setItem('Lesson', JSON.stringify(value.lessonArray));
         this.userLoggedIn = true;
         this.userName = user.mvuser_name;
         localStorage.setItem('signInStatus', JSON.stringify(true));

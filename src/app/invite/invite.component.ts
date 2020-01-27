@@ -5,6 +5,8 @@ import { DataService } from './../services/data.service';
 import { PlatformLocation } from '@angular/common';
 import { trigger, transition, animate, style, state } from '@angular/animations';
 
+declare let apiUrl:any 
+
 @Component({
   selector: 'app-invite',
   templateUrl: './invite.component.html',
@@ -50,13 +52,14 @@ export class InviteComponent implements OnInit {
 
   ngOnInit() {
     
+    let urlInfo = apiUrl.split("//");
     this.refCode = this.data.refCode;
     
     /*console.log((this.platformLocation as any).location);
     console.log((this.platformLocation as any).location.href);
     console.log((this.platformLocation as any).location.origin);*/
    
-    this.invitePageURL = 'https://'+this.refCode+'.'+'challenge.com/preview/';
+    this.invitePageURL = 'https://'+this.refCode+'.'+urlInfo[1];
     
     this.wp.setUserLogin().subscribe((res: any) => {
       const url = JSON.parse(res);
