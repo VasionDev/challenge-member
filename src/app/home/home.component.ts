@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 let CompletedTools = [];
 let prerequisites = [];
 
+declare let apiUrl:any
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -29,7 +31,7 @@ export class HomeComponent implements OnInit {
   completedLesson: any[] = [];
   completedIndex: any[] = [];
   isOpen: any = true;
-  // cl:any;
+  logoutTo: any = '';
 
   slideConfig = {
 
@@ -60,6 +62,7 @@ export class HomeComponent implements OnInit {
 
     // this.checkNavigator();
     // console.log(this.completePercent);
+    this.logoutTo = apiUrl;
 
     this.nextStartLesson = {
       lesson_id: ''
@@ -303,7 +306,7 @@ export class HomeComponent implements OnInit {
     localStorage.removeItem('UserID');
     this.wp.logout().subscribe((data: any) => {
       // this.data.nameChange('AppComponent');
-      window.location.href = 'https://challenge.com/preview/';
+      window.location.href = this.logoutTo;
     });
   }
 

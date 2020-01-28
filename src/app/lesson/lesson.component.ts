@@ -7,6 +7,7 @@ import { trigger, transition, animate, style } from '@angular/animations';
 
 let IndexArray = [];
 let LessonArray = [];
+declare let apiUrl:any
 
 @Component({
   selector: 'app-lesson',
@@ -38,6 +39,7 @@ export class LessonComponent implements OnInit {
   invitePageURL: any;
   emailMessage: any = '';
   systemOS: any;
+  logoutTo: any = '';
 
   constructor(
     private data: DataService,
@@ -47,6 +49,7 @@ export class LessonComponent implements OnInit {
 
   ngOnInit() {
 
+    this.logoutTo = apiUrl;
     this.getMobileOperatingSystem();
 
     this.data.currentData.subscribe((data: any) => {
@@ -113,9 +116,10 @@ export class LessonComponent implements OnInit {
     localStorage.removeItem('Index');
     localStorage.removeItem('Lesson');
     localStorage.removeItem('UserID');
-    this.router.navigate(['/']);
+    // this.router.navigate(['/']);
     this.wp.logout().subscribe((data: any) => {
-      this.data.nameChange('AppComponent');
+      // this.data.nameChange('AppComponent');
+      window.location.href = this.logoutTo;
     });
 
     /*this.router.navigateByUrl('/?lesson', { skipLocationChange: false }).then(() => {

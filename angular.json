@@ -29,7 +29,6 @@
               "src/styles.css",
               "src/assets/css/all.min.css",
               "node_modules/slick-carousel/slick/slick.css",
-              "node_modules/slick-carousel/slick/slick-theme.css",
               "src/assets/css/main.css"
             ],
             "scripts": [

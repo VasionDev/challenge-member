@@ -76,14 +76,14 @@
         <li class="side__menu-items side__menu--colse"><a closeSidebar class="side__menu--colse-icon pointer text-left">&times;</a>
          
         </li>
-        <li class="side__menu-items" [class.active]="currentPage === 'experience'"><a (click)="onExperiencePage()" class="side__menu--links pointer">MY EXPERIENCE</a></li>
+        <li class="side__menu-items" [class.active]="currentPage === 'experience'"><a (click)="onExperiencePage()" class="side__menu--links pointer hide">MY EXPERIENCE</a></li>
         <li class="side__menu-items" [class.active]="currentPage === ''"><a (click)="onHomePage()" class="side__menu--links pointer">TRAINING</a></li>
       </ul>
     </div>
       <div class="side__menu-container--bottom">
       <ul class="side__menu-list">
-        <li class="side__menu-items"><a (click)="onInvite()" class="side__menu--links pointer">Invite friend</a></li>
-        <li class="side__menu-items"><a class="side__menu--links pointer">GET HELP</a></li>
+        <li class="side__menu-items"><a (click)="onInvite()" class="side__menu--links pointer">Challenge Friends</a></li>
+        <li class="side__menu-items"><a (click)="onGetHelp()" class="side__menu--links pointer">GET HELP</a></li>
         <!-- <li *ngIf="!userLoggedIn" class="side__menu-items"><a [href]="(redirectUrl) ? redirectUrl : 'javascript: void(0);'" class="side__menu--links pointer">log in</a></li> -->
         <li *ngIf="!userLoggedIn" class="side__menu-items"><a (click)="onLogin()" class="side__menu--links pointer">log in</a></li>
         <li *ngIf="userLoggedIn" class="side__menu-items"><a (click)="onClickSignOut()" class="side__menu--links pointer">log out</a></li>

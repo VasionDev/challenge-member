@@ -3,6 +3,8 @@ import { WordpressService } from './../services/wordpress.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+declare let apiUrl:any
+
 @Component({
   selector: 'app-resource',
   templateUrl: './resource.component.html',
@@ -14,10 +16,13 @@ export class ResourceComponent implements OnInit {
   indexPost: any;
   redirectUrl: any;
   userLoggedIn: any;
+  logoutTo: any = '';
 
   constructor(private data: DataService, private route: ActivatedRoute, private router: Router, private wp: WordpressService) {}
 
   ngOnInit() {
+
+    this.logoutTo = apiUrl;
     this.data.currentData.subscribe((data: any) => {
       this.posts = data;
     });
@@ -58,9 +63,10 @@ export class ResourceComponent implements OnInit {
     localStorage.removeItem('Index');
     localStorage.removeItem('Lesson');
     localStorage.removeItem('UserID');
-    this.router.navigate(['/']);
+    // this.router.navigate(['/']);
     this.wp.logout().subscribe((data: any) => {
-      this.data.nameChange('AppComponent');
+      // this.data.nameChange('AppComponent');
+      window.location.href = this.logoutTo;
     });
 
     /*this.router.navigateByUrl('/?lesson', { skipLocationChange: false }).then(() => {

@@ -4,6 +4,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalService } from './../services/modal.service';
 
+declare let apiUrl:any
+
 @Component({
   selector: 'app-options',
   templateUrl: './options.component.html',
@@ -20,10 +22,12 @@ export class OptionsComponent implements OnInit {
   inviteEmail: any;
   invitePageURL: any;
   emailMessage: any = '';
+  logoutTo: any = '';
 
   constructor(private data: DataService, private wp: WordpressService, private router: Router, private route: ActivatedRoute, private modalService: ModalService) {}
 
   ngOnInit() {
+    this.logoutTo = apiUrl;
     this.openedIn = false;
     if (JSON.parse(localStorage.getItem('signInStatus')) !== null) {
       this.userLoggedIn = JSON.parse(localStorage.getItem('signInStatus'));
@@ -71,7 +75,7 @@ export class OptionsComponent implements OnInit {
     localStorage.removeItem('UserID');
     this.wp.logout().subscribe((data: any) => {
       // this.data.nameChange('AppComponent');
-      window.location.href = 'https://challenge.com/preview/';
+      window.location.href = this.logoutTo;
     });
   }
 
@@ -127,6 +131,10 @@ export class OptionsComponent implements OnInit {
 
   onLogin() {
     window.open(this.redirectUrl, "_self");
+  }
+
+  onGetHelp() {
+    window.open('https://support.justpruvit.com/hc/en-us');
   }
 
 

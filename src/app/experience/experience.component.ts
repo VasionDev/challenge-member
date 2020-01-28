@@ -4,6 +4,8 @@ import { DataService } from './../services/data.service';
 import { WordpressService } from '../services/wordpress.service';
 import { ModalService } from './../services/modal.service';
 
+declare let apiUrl:any
+
 @Component({
   selector: 'app-experience',
   templateUrl: './experience.component.html',
@@ -21,6 +23,7 @@ export class ExperienceComponent implements OnInit {
   submittedExpData: any;
   userLoggedIn = false;
   redirectUrl: any;
+  logoutTo: any = '';
 
   slideConfig = {
 
@@ -54,6 +57,7 @@ export class ExperienceComponent implements OnInit {
 
   ngOnInit() {
     // this.spinner = true;
+    this.logoutTo = apiUrl;
 
     if (JSON.parse(localStorage.getItem('signInStatus')) !== null) {
       this.userLoggedIn = JSON.parse(localStorage.getItem('signInStatus'));
@@ -99,7 +103,7 @@ export class ExperienceComponent implements OnInit {
     } else {
       this.completedExpLesson = [];
     }
-    console.log(this.completedExpLesson);
+    // console.log(this.completedExpLesson);
   }
 
   slickInit(e) {}
@@ -157,7 +161,7 @@ export class ExperienceComponent implements OnInit {
     localStorage.removeItem('UserID');
     this.wp.logout().subscribe((data: any) => {
       // this.data.nameChange('AppComponent');
-      window.location.href = 'https://challenge.com/preview/';
+      window.location.href = this.logoutTo;
     });
   }
 

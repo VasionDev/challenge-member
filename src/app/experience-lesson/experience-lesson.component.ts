@@ -7,6 +7,8 @@ import { ModalService } from './../services/modal.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 
+declare let apiUrl:any
+
 @Component({
   selector: 'app-experience-lesson',
   templateUrl: './experience-lesson.component.html',
@@ -44,7 +46,7 @@ export class ExperienceLessonComponent implements OnInit, AfterContentChecked, A
   userLoggedIn = false;
   redirectUrl: any;
   imageSelectedValue: any = 'option1';
-  
+  logoutTo: any = '';
 
   constructor(
 
@@ -58,6 +60,8 @@ export class ExperienceLessonComponent implements OnInit, AfterContentChecked, A
   }
 
   ngOnInit() {
+
+    this.logoutTo = apiUrl;
 
     if (JSON.parse(localStorage.getItem('signInStatus')) !== null) {
       this.userLoggedIn = JSON.parse(localStorage.getItem('signInStatus'));
@@ -442,7 +446,7 @@ export class ExperienceLessonComponent implements OnInit, AfterContentChecked, A
     localStorage.removeItem('UserID');
     this.wp.logout().subscribe((data: any) => {
       // this.data.nameChange('AppComponent');
-      window.location.href = 'https://challenge.com/preview/';
+      window.location.href = this.logoutTo;;
     });
   }
 

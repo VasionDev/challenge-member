@@ -42,6 +42,7 @@ export class InviteComponent implements OnInit {
   showMessage = false;
   refCode: any = '';
   copiedLink = false;
+  logoutTo: any = '';
 
   constructor(
     private route: ActivatedRoute, 
@@ -51,6 +52,8 @@ export class InviteComponent implements OnInit {
     private platformLocation: PlatformLocation ) { }
 
   ngOnInit() {
+
+    this.logoutTo = apiUrl;
     
     let urlInfo = apiUrl.split("//");
     this.refCode = this.data.refCode;
@@ -156,9 +159,10 @@ export class InviteComponent implements OnInit {
     localStorage.removeItem('Index');
     localStorage.removeItem('Lesson');
     localStorage.removeItem('UserID');
-    this.router.navigate(['/']);
+    // this.router.navigate(['/']);
     this.wp.logout().subscribe((data: any) => {
-      this.data.nameChange('AppComponent');
+      // this.data.nameChange('AppComponent');
+      window.location.href = this.logoutTo;
     });
   }
 
