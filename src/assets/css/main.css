@@ -1907,4 +1907,8 @@ a:hover {
   cursor: default;
 }
 
+.chellenge__compleate--details--text img {
+  width: 100%;
+  padding: 10px;
+}
 
