@@ -2,6 +2,8 @@ import { WordpressService } from './wordpress.service';
 import { Injectable, EventEmitter } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+declare let ga: Function;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -46,4 +48,20 @@ export class DataService {
   saveExperienceDataTemp(data: any) {
     this.experienceSourceData.next(data);
   }
+
+
+  eventEmitter(eventCategory: string,
+    eventAction: string,
+    eventLabel: string = null) {
+    ga('send', 'event', {
+      eventCategory: eventCategory,
+      eventLabel: eventLabel,
+      eventAction: eventAction,
+      hitCallback: () => {
+        console.log(eventLabel);
+      }
+    });
+  }
+
+
 }

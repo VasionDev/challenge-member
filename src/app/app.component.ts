@@ -66,6 +66,7 @@ export class AppComponent implements OnInit {
   checkUserAuthentication() {
     this.wp.login().subscribe((user: any) => {
       if (user.mvuser_id !== undefined && user.mvuser_id !== '') {
+        localStorage.setItem('UserID', user.mvuser_id);
         // console.log(user.mvuser_refCode);
         this.data.saveRefCode(user.mvuser_refCode);
         const value = JSON.parse(user.user_learn_data);

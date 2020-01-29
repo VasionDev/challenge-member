@@ -833,7 +833,7 @@ section {
 .chellenge__compleate--details--text {
   max-width: 420px;
   margin: 0 auto;
-  padding-bottom: 120px;
+  padding-bottom: 30px;
   padding-top: 15px;
 }
 
@@ -1678,11 +1678,11 @@ a:hover {
   border-bottom: 1px solid rgba(250, 250, 250, 0.15);
 }
 
-.side__menu-items:hover,
+/*.side__menu-items:hover,
 .side__menu .active {
   background: linear-gradient(90deg, #FF6580 -12.86%, #FC9C7A 129.29%);
   cursor: pointer;
-}
+}*/
 
 .side__menu-container--top {
   border-bottom: 1px solid rgba(250, 250, 250, 0.15);
@@ -1710,11 +1710,6 @@ a:hover {
 .side__menu--links:hover, .side__menu--links:focus {
   text-decoration: none;
   color: #ffffff;
-}
-
-.side__menu--colse:hover {
-  background: unset;
-  cursor: default;
 }
 
 .side__menu--colse-icon {
@@ -1848,3 +1843,68 @@ a:hover {
     height: 250px;
   }
 }
+
+
+/*****************************************
+*****************************************
+******************************************/
+
+.side__menu--colse {
+  padding: 11px 20px;
+}
+ 
+.side__menu-items:hover, .side__menu-items.active {
+  background: rgba(250, 250, 250, 0.1);
+}
+  
+.challenge__member--mobile--brand--img {
+  transform: translateY(-2px);
+}
+  
+.ch-member-alert {
+  padding-top: 8px;
+  max-width: 300px;
+  width: 100%;
+  margin: 0 auto -7px;
+}
+  
+.ch-member-alert .alert {
+  font-size: 16px;
+  font-family: acumin-pro, sans-serif;
+  line-height: 22px;
+  font-weight: normal;
+  font-style: normal;
+  border-radius: 43px;
+  padding: 7px 0;
+}
+  
+.ch-member-panding {
+  color: #AF8C73;
+  background-color: #FFDCC4;
+  border: 1px solid #FCC197;
+}
+  
+.ch-member-approved {
+  color: #1CB522;
+  background: rgba(191, 237, 210, 0.5);
+  border: 1px solid #1CB522;
+}
+
+.challenge_active {
+  background: -webkit-gradient(linear, left top, right top, color-stop(-12.86%, #FF6580), color-stop(129.29%, #FC9C7A));
+  background: -o-linear-gradient(left, #FF6580 -12.86%, #FC9C7A 129.29%);
+  background: linear-gradient(90deg, #FF6580 -12.86%, #FC9C7A 129.29%);
+}
+  
+.challenge_active:hover {
+  background: -webkit-gradient(linear, left bottom, left top, from(rgba(255, 255, 255, 0.1)), to(rgba(255, 255, 255, 0.1))), -webkit-gradient(linear, left top, right top, color-stop(-12.86%, #FF6580), color-stop(129.29%, #FC9C7A));
+  background: -o-linear-gradient(bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), -o-linear-gradient(left, #FF6580 -12.86%, #FC9C7A 129.29%);
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), linear-gradient(90deg, #FF6580 -12.86%, #FC9C7A 129.29%);
+}
+
+.side__menu--colse:hover {
+  background: unset;
+  cursor: default;
+}
+
+

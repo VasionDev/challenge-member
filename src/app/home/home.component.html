@@ -84,10 +84,10 @@
         
                     <h3 class="ch-brand-gray ch-member-acu-14-18 compleate__text--sub">
                       <span class="compleate__text--sub-text">Next up is </span>
-                      <span class="compleate__text--sub-text pointer" (click)="onClickLesson(lastEndedPostIndex.learnID,nextStartLesson.lesson_id)" routerLink='/' [queryParams]="{module: lastEndedPostIndex.learnID, lesson: nextStartLesson.lesson_id}">{{nextStartLesson.ques}}</span>
+                      <span class="compleate__text--sub-text pointer" (click)="onClickLesson(lastEndedPostIndex.learnID,nextStartLesson.lesson_id, nextStartLesson.ques)" routerLink='/' [queryParams]="{module: lastEndedPostIndex.learnID, lesson: nextStartLesson.lesson_id}">{{nextStartLesson.ques}}</span>
                     </h3>
         
-                    <button class="ch-btn-primary-journey compleate__text--continue" (click)="onClickLesson(lastEndedPostIndex.learnID,nextStartLesson.lesson_id)" routerLink='/' [queryParams]="{module: lastEndedPostIndex.learnID, lesson: nextStartLesson.lesson_id}">CONTINUE Journey</button>
+                    <button class="ch-btn-primary-journey compleate__text--continue" (click)="onClickLesson(lastEndedPostIndex.learnID,nextStartLesson.lesson_id, nextStartLesson.ques)" routerLink='/' [queryParams]="{module: lastEndedPostIndex.learnID, lesson: nextStartLesson.lesson_id}">CONTINUE Journey</button>
                 </div>
               </ng-template>
             </div>
@@ -135,7 +135,7 @@
                   <p class="ch-brand-gray ch-member-rift-14-17 challenge__stage-content--sub">{{ completedLessonNo(post) }}/{{ post.lesson?.length }} Steps complete</p>
 
                   <ul>
-                    <li *ngFor="let lesson of post.lesson" (click)="onClickLesson(post.learnID,lesson.lesson_id)" routerLink='/' [queryParams]="{module: post.learnID, lesson: lesson.lesson_id}" class="pointer">
+                    <li *ngFor="let lesson of post.lesson" (click)="onClickLesson(post.learnID,lesson.lesson_id, lesson.ques)" routerLink='/' [queryParams]="{module: post.learnID, lesson: lesson.lesson_id}" class="pointer">
                       <div class="lesson-list-wrap" [class.compleate__done]="completedTask(post.learnID,lesson.lesson_id)">
                         <a [innerHTML]="lesson.ques"></a>
                       </div>

@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 let CompletedTools = [];
 let prerequisites = [];
 
-declare let apiUrl:any
+declare let apiUrl:any;
 
 @Component({
   selector: 'app-home',
@@ -80,13 +80,33 @@ export class HomeComponent implements OnInit {
       }
 
       const tempIndex = JSON.parse(localStorage.getItem('LastLesson'));
+      this.completedLesson = JSON.parse(localStorage.getItem('Lesson'));
       let mainIndex: number;
 
       if (tempIndex === null) {
-        this.indexPost = this.posts[0].learnID;
+        /*this.indexPost = this.posts[0].learnID;
         lastEndedPostLessons = this.posts[0].lesson;
         this.lastEndedPostIndex = this.posts[0];
-        this.indexSlide = 0;
+        this.indexSlide = 0;*/
+
+        for (mainIndex = 0; mainIndex < this.posts.length; mainIndex++) {
+
+          let lastIndex = JSON.parse(localStorage.getItem('LastLesson'));
+          if(lastIndex  != null && lastIndex != '') {
+            break;
+          }
+          for (const lesson of this.posts[mainIndex].lesson) {
+            if ( !this.completedLesson.includes(lesson.lesson_id)) {
+              this.indexPost = this.posts[mainIndex].learnID;
+              lastEndedPostLessons = this.posts[mainIndex].lesson;
+              this.lastEndedPostIndex = this.posts[mainIndex];
+              this.indexSlide = mainIndex;
+              localStorage.setItem('LastLesson', JSON.stringify(this.posts[mainIndex].learnID));
+              break;
+            }
+          }
+        }
+
       } else {
         for (mainIndex = 0; mainIndex < this.posts.length; mainIndex++) {
           if (this.posts[mainIndex].learnID === tempIndex) {
@@ -99,7 +119,7 @@ export class HomeComponent implements OnInit {
       }
 
       this.updateNextStartLesson(lastEndedPostLessons);
-      this.completedLesson = JSON.parse(localStorage.getItem('Lesson'));
+      // this.completedLesson = JSON.parse(localStorage.getItem('Lesson'));
       this.completedIndex = JSON.parse(localStorage.getItem('Index'));
       // console.log(this.completedLesson.length, totalLesson);
       if (this.completedLesson !== null) {
@@ -241,7 +261,8 @@ export class HomeComponent implements OnInit {
     this.data.nameChange('OptionsComponent');
   }
 
-  onClickLesson(index: any, lesson: any) {
+  onClickLesson(index: any, lesson: any, lessonTitle: any) {
+    // this.data.eventEmitter('Lesson title', 'click', lessonTitle);
     this.data.lessonChange(index, lesson);
     this.data.nameChange('LessonComponent');
   }

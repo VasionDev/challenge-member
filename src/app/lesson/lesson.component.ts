@@ -7,7 +7,7 @@ import { trigger, transition, animate, style } from '@angular/animations';
 
 let IndexArray = [];
 let LessonArray = [];
-declare let apiUrl:any
+declare let apiUrl:any;
 
 @Component({
   selector: 'app-lesson',
