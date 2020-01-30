@@ -1907,7 +1907,7 @@ a:hover {
   cursor: default;
 }
 
-.chellenge__compleate--details--text img {
+.chellenge__compleate--details--text.challenge-img-responsive img {
   width: 100%;
   padding: 10px;
 }
