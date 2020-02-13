@@ -130,6 +130,8 @@ export class HomeComponent implements OnInit {
       this.allComplete();
       this.route.queryParamMap.subscribe(params => {
 
+        console.log(params);
+
         const pageName = params.get('page');
         const expLessonID = params.get('explesson');
         const lessonID = params.get('lesson');

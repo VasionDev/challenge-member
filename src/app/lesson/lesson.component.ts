@@ -40,6 +40,7 @@ export class LessonComponent implements OnInit {
   emailMessage: any = '';
   systemOS: any;
   logoutTo: any = '';
+  remainSingleLesson: any = '';
 
   constructor(
     private data: DataService,
@@ -94,10 +95,22 @@ export class LessonComponent implements OnInit {
     }
   }
 
-  onClickNewComplete(postID: any, lessonID: any) {
-
+  onClickNewComplete(postID: any, lessonID: any, lessonList:any) {
+    // console.log(lessonList);
     this.completeChange(this.indexPost, this.indexLesson);
-    this.router.navigate(['/'], {queryParams: {module: postID, lesson: lessonID}});
+    let currentCompletedLessons = JSON.parse(localStorage.getItem('Lesson'));
+    if(currentCompletedLessons.includes(lessonID)) {
+      console.log(lessonID, 'already exists');
+      for (const lesson of lessonList) {
+        if ( !currentCompletedLessons.includes(lesson.lesson_id)) {
+          this.router.navigate(['/'], {queryParams: {module: postID, lesson: lesson.lesson_id}});
+          break;
+        }
+      }
+
+    } else {
+      this.router.navigate(['/'], {queryParams: {module: postID, lesson: lessonID}});
+    }
     window.scrollTo(0, 0);
   }
 
@@ -150,6 +163,13 @@ export class LessonComponent implements OnInit {
         localStorage.setItem('LastLesson', JSON.stringify(this.posts[postIndex + 1].learnID));
       }
     }
+  }
+
+  onClickCompleteLastLesson(postIndex: any, postID: any) {
+    this.completeChange(this.indexPost, this.indexLesson);
+    this.completedToolName = this.posts[postIndex].learnTitle;
+    localStorage.removeItem('LastLesson');
+    this.modalService.open('lesson-modal');
   }
 
   getTheLesson(learnID: any, lessonID: any) {
@@ -363,6 +383,31 @@ export class LessonComponent implements OnInit {
 
     
 
+  }
+
+  getNextLesson(postID:any, nextLesson:any, lessonList:any) {
+    let nextLessonTitle = '';
+    console.log(nextLesson.lesson_id)
+    let currentCompletedLessons = JSON.parse(localStorage.getItem('Lesson'));
+    if(currentCompletedLessons.includes(nextLesson.lesson_id)) {
+      console.log('included');
+      for (const lesson of lessonList) {
+        if ( !currentCompletedLessons.includes(lesson.lesson_id) && lesson.lesson_id != this.indexLesson) {
+          nextLessonTitle = this.lessonTitleShortener(lesson.ques);
+          break;
+        }
+      }
+
+    } else {
+      nextLessonTitle = this.lessonTitleShortener(nextLesson.ques);
+    }
+
+    if(nextLessonTitle == '' && !currentCompletedLessons.includes(this.indexLesson)) {
+      this.remainSingleLesson = this.indexLesson;
+      console.log('this is last lesson', this.remainSingleLesson);
+    }
+
+    return nextLessonTitle;
   }
 
 }

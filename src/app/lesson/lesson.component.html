@@ -136,12 +136,27 @@
                 </div> -->
               </div>
               <div class="text-center">
-                <button *ngIf="lesson.next_lesson != null; else completeSection" class="ch-btn-nextlesson">
-                  <p (click)="onClickNewComplete(post.learnID, lesson.next_lesson.lesson_id)">
-                    <span class="ch-btn-nextlesson--top">Next up</span> 
-                    <span class="ch-btn-nextlesson--bottom">{{lessonTitleShortener(lesson.next_lesson.ques)}}</span>
-                  </p>
-                </button>
+                <span *ngIf="lesson.next_lesson != null; else completeSection">
+                  <button *ngIf="getNextLesson(post.learnID, lesson.next_lesson, post.lesson);else nextSection" class="ch-btn-nextlesson">
+                    <p (click)="onClickNewComplete(post.learnID, lesson.next_lesson.lesson_id, post.lesson)">
+                      <span class="ch-btn-nextlesson--top">Next up</span> 
+                      <!-- <span class="ch-btn-nextlesson--bottom">{{lessonTitleShortener(lesson.next_lesson.ques)}}</span> -->
+                      <span class="ch-btn-nextlesson--bottom">{{getNextLesson(post.learnID, lesson.next_lesson, post.lesson)}}</span>
+                    </p>
+                  </button>
+                  <ng-template #nextSection>
+                    <!-- <button class="ch-btn-success">All steps are completed</button> -->
+
+                    <button *ngIf="remainSingleLesson != ''" (click)="onClickCompleteLastLesson(postIndex, post.learnID)" class="ch-btn-success">Complete section</button>
+
+                    <button *ngIf="remainSingleLesson == ''" (click)="onClickLeft()" class="ch-btn-nextlesson">
+                      <p>
+                        <span class="ch-btn-nextlesson--top">All steps are completed</span> 
+                        <span class="ch-btn-nextlesson--bottom">Continue journey</span>
+                      </p>
+                    </button>
+                  </ng-template>
+                </span>
                 <ng-template #completeSection>
                   <button *ngIf="incompleteLesson == ''" (click)="onClickCompleteAll(postIndex, post.learnID)" class="ch-btn-success">Complete section</button>
                 </ng-template>

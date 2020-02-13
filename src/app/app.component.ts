@@ -27,6 +27,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
 
+    localStorage.removeItem('LastLesson');
+
     this.wp.setUserLogin().subscribe((res: any) => {
       const url = JSON.parse(res);
       this.redirectUrl = url.url;

@@ -711,6 +711,7 @@ section {
 }
 
 .section__challenge__compleate .compleate__text {
+  padding: 0 15px;
   margin-top: 12px;
 }
 

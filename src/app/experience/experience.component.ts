@@ -24,6 +24,7 @@ export class ExperienceComponent implements OnInit {
   userLoggedIn = false;
   redirectUrl: any;
   logoutTo: any = '';
+  expStatus: any = 0;
 
   slideConfig = {
 
@@ -81,19 +82,19 @@ export class ExperienceComponent implements OnInit {
       this.spinner = true;
     } else {
       this.wp.getUserExperience().subscribe((res: any) => {
-        // console.log(res);
-        let status = JSON.parse(res);
-        if(status.error || status.exp_token_error) {
+        
+        let result = JSON.parse(res);
+        if(result.error || result.exp_token_error) {
           window.location.href = `
               https://pg-app-9dfh2kb0auoxwzcgrca8678kjc14dc.scalabl.cloud/v1/authorize?redirectURL=https://challenge.com/preview/member/`;
         } else {
-          // this.data.saveExperienceDataTemp(JSON.parse(res));
+          this.expStatus = result.status;
+          console.log(this.expStatus);
           this.spinner = false;
         }
       },
       (err) => {},
       () => {
-        // this.spinner = false;
       });
     }
 
@@ -131,11 +132,19 @@ export class ExperienceComponent implements OnInit {
 
   onSubmitExperience() {
     this.spinner = true;
+    this.submittedExpData = JSON.parse(this.submittedExpData);
+    this.submittedExpData.submit = true;
+    this.submittedExpData = JSON.stringify(this.submittedExpData);
     this.wp.saveExperienceData(this.submittedExpData).subscribe((data: any)=>{
-      console.log(JSON.parse(data));
+      let result = JSON.parse(data);
+      console.log(result);
       this.data.saveExperienceDataTemp(JSON.parse(data));
+      this.expStatus = result.status;
+      console.log(this.expStatus);
     },
-    (err) => {},
+    (err) => {
+      console.log(err);
+    },
     ()=>{
       this.spinner = false;
       this.modalService.open('exp-save-modal');
@@ -163,6 +172,30 @@ export class ExperienceComponent implements OnInit {
       // this.data.nameChange('AppComponent');
       window.location.href = this.logoutTo;
     });
+  }
+
+  onShareStory() {
+
+    let newVariable: any;
+
+    newVariable = window.navigator;
+    console.log(window.location.href);
+    if (newVariable && newVariable.share) {
+      console.log('Web Share API is supported');
+      newVariable.share({
+        title: 'Member Experience',
+        text: '',
+        url: window.location.href
+      }).then(() => {
+        console.log('Thanks for sharing!');
+      })
+      .catch(err => {
+        console.log(`Couldn't share because of`, err.message);
+      });
+    } else {
+      console.log('Fallback');
+    }
+    
   }
 
 }

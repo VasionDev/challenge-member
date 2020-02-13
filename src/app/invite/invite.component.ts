@@ -77,7 +77,7 @@ export class InviteComponent implements OnInit {
   }
 
   inviteByEmail() {
-    //console.log(this.inviteEmail);
+    console.log(this.inviteEmail);
     this.emailMessage = '';
     this.loadingState = true;
     let response = '';
@@ -86,7 +86,7 @@ export class InviteComponent implements OnInit {
       let mailData = {'email_to' : this.inviteEmail, 'share_url' : this.invitePageURL};
       // let mailDataS = JSON.stringify(mailData);
       this.wp.sendMail(mailData).subscribe((res:any) => {
-        // console.log(res);
+        console.log(res);
         let result = JSON.parse(res);
         if(result.act == 'success') {
           response = 'Email sent';
