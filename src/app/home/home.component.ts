@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit {
   completedIndex: any[] = [];
   isOpen: any = true;
   logoutTo: any = '';
+  homeParam = "";
 
   slideConfig = {
 
@@ -129,6 +130,7 @@ export class HomeComponent implements OnInit {
       }
       this.allComplete();
       this.route.queryParamMap.subscribe(params => {
+        this.homeParam = params.get("lang");
 
         console.log(params);
 
