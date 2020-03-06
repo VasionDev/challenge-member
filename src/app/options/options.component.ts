@@ -12,7 +12,7 @@ declare let apiUrl: any;
   styleUrls: ["./options.component.css"]
 })
 export class OptionsComponent implements OnInit {
-  menuOpened: boolean = false;
+  menuOpened = false;
   userLoggedIn = false;
   @Input() openedIn: boolean;
   currentPage: any;
@@ -170,26 +170,28 @@ export class OptionsComponent implements OnInit {
   }
 
   onClickLanguage(language: any) {
-    this.selectedLanguage = language;
-    const postData = JSON.parse(this.dataWithLanguages[this.selectedLanguage]);
-    this.makeCategoryWithLanguages(postData);
+    // this.selectedLanguage = language;
+    // const postData = JSON.parse(this.dataWithLanguages[this.selectedLanguage]);
+    // this.makeCategoryWithLanguages(postData);
 
-    const day10Guide = [];
-    postData.forEach((post: any) => {
-      if (post.hasOwnProperty("category")) {
-        post.category.forEach((category: any) => {
-          if (category.slug.startsWith("10-day-guide")) {
-            day10Guide.push(post);
-          }
-        });
-      }
-    });
+    // const day10Guide = [];
+    // postData.forEach((post: any) => {
+    //   if (post.hasOwnProperty("category")) {
+    //     post.category.forEach((category: any) => {
+    //       if (category.slug.startsWith("10-day-guide")) {
+    //         day10Guide.push(post);
+    //       }
+    //     });
+    //   }
+    // });
 
-    this.data.dataChange(day10Guide);
+    // this.data.dataChange(day10Guide);
     if (language === "zh-hant" || language === "zh-hans") {
       this.router.navigate(["/"], { queryParams: { lang: language } });
+      this.data.nameChange("CategoryComponent");
     } else {
       this.router.navigate(["/"]);
+      this.data.nameChange("CategoryComponent");
     }
   }
 
@@ -258,5 +260,9 @@ export class OptionsComponent implements OnInit {
     });
 
     this.data.dataChange(categoryData);
+  }
+
+  onClickOption() {
+    this.data.nameChange("CategoryComponent");
   }
 }
