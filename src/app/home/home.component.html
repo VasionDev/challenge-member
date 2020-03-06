@@ -34,9 +34,15 @@
           <div class="container challenge__member--custom-nav">
     
             <div class="challenge__member--menu">
-              <button (click)="toggleSidebar()" type="button" class="challenge__member--desktop--button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-5" aria-expanded="false"> 
+              <!-- <button (click)="toggleSidebar()" type="button" class="challenge__member--desktop--button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-5" aria-expanded="false"> 
                 <img class="challenge__member--desktop--button-icon" src="https://challenge.com/preview/wp-content/themes/pruvit-challenge/learning-member/assets/img/challene-menu-desktop.png" alt="menu">
-              </button> 
+              </button>
+              <button (click)="onClickHome()" type="button" class="challenge__member--mobile--button">
+                <i style="color: #000" class="fal fa-home"></i>
+              </button> -->
+              <button style="border: none;" (click)="onClickHome()" type="button" class="challenge__member--mobile--button"> 
+                <i style="color: #000" class="fal fa-home"></i>
+              </button>
             </div>
     
             <div class="navbar-brand-logo text-center">

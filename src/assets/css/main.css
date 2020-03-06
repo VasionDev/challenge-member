@@ -726,7 +726,6 @@ h6 {
 }
 
 .section__challenge__compleate .compleate__text {
-  padding: 0 15px;
   margin-top: 12px;
 }
 
@@ -1688,6 +1687,7 @@ a:hover {
   background-color: #131313;
   height: 100vh;
   /* position: relative; */
+  overflow: hidden;
 }
 
 .side__menu-list {
@@ -1951,7 +1951,6 @@ a:hover {
   padding: 10px;
 }
 
-
 /*  ------------------ language -------------------------- */
 
 .side__menu--colse {
@@ -1966,6 +1965,11 @@ a:hover {
 
 .flag-icon-chinese {
   background-image: url(https://image.flaticon.com/icons/svg/2151/2151303.svg);
+  background-repeat: no-repeat;
+}
+
+.flag-icon-spanish {
+  background-image: url(https://image.flaticon.com/icons/svg/206/206600.svg);
   background-repeat: no-repeat;
 }
 
@@ -2014,9 +2018,9 @@ a:hover {
   margin-right: 10px;
 }
 
-/* .member__lenguage-arrow {
+.member__lenguage-arrow {
   font-size: 27px;
-} */
+}
 
 
 /*---------------- sidemenu ------------*/
@@ -2086,6 +2090,8 @@ collapse-menu {
   text-decoration: none;
 }
 
+
+
 .side__menu-challenge-cat {
   position: relative;
 }
@@ -2101,18 +2107,13 @@ collapse-menu {
   position: relative;
 }
 
-/* -------------- header -------------- */
-
-.challenge__member--custom-nav {
-  margin-top: 16px;
-}
-
 .challenge__member--menu {
   position: absolute;
 }
 
 .challenge__member--desktop--button {
   border: none;
+  background-color: #F5F5F5;
 }
 
 .challenge__member--desktop--button:focus {
@@ -2120,15 +2121,33 @@ collapse-menu {
 }
 
 .challenge__member--desktop--button-icon {
-  background-color: #F5F5F5;
+  height: 10px;
 }
 
 .challenge__member .product-page-logo {
   background-color: transparent;
   width: auto;
   padding: 0;
-  height: 45px;
+  height: 28px;
+  border-radius: unset;
 }
+
+
+.challenge__member--share {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.challenge__member--mobile--button {
+  background-color: transparent;
+}
+
+.member__lenguage-arrow {
+  font-size: 16px;
+  margin-top: 5px;
+}
+
 
 
 /*------ challenge__discover----------*/
