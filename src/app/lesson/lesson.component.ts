@@ -41,6 +41,7 @@ export class LessonComponent implements OnInit {
   logoutTo: any = "";
   remainSingleLesson: any = "";
   homeParam = "";
+  catParam = "";
 
   constructor(
     private data: DataService,
@@ -62,6 +63,7 @@ export class LessonComponent implements OnInit {
       this.indexPost = +params.get("module");
       this.indexLesson = params.get("lesson");
       this.homeParam = params.get("lang");
+      this.catParam = params.get("category");
     });
 
     this.wp.setUserLogin().subscribe((res: any) => {
@@ -106,14 +108,22 @@ export class LessonComponent implements OnInit {
       for (const lesson of lessonList) {
         if (!currentCompletedLessons.includes(lesson.lesson_id)) {
           this.router.navigate(["/"], {
-            queryParams: { module: postID, lesson: lesson.lesson_id }
+            queryParams: {
+              category: this.catParam,
+              module: postID,
+              lesson: lesson.lesson_id
+            }
           });
           break;
         }
       }
     } else {
       this.router.navigate(["/"], {
-        queryParams: { module: postID, lesson: lessonID }
+        queryParams: {
+          category: this.catParam,
+          module: postID,
+          lesson: lessonID
+        }
       });
     }
     window.scrollTo(0, 0);
@@ -189,7 +199,9 @@ export class LessonComponent implements OnInit {
 
   onClickLeft() {
     if (this.homeParam !== "") {
-      this.router.navigate(["/"], { queryParams: { lang: this.homeParam } });
+      this.router.navigate(["/"], {
+        queryParams: { lang: this.homeParam, category: this.catParam }
+      });
       this.data.nameChange("HomeComponent");
     } else {
       this.router.navigate(["/"]);
@@ -400,14 +412,14 @@ export class LessonComponent implements OnInit {
 
   getNextLesson(postID: any, nextLesson: any, lessonList: any) {
     let nextLessonTitle = "";
-    console.log(nextLesson.lesson_id);
-    let currentCompletedLessons = JSON.parse(localStorage.getItem("Lesson"));
+    // console.log(nextLesson.lesson_id);
+    const currentCompletedLessons = JSON.parse(localStorage.getItem("Lesson"));
     if (currentCompletedLessons.includes(nextLesson.lesson_id)) {
       console.log("included");
       for (const lesson of lessonList) {
         if (
           !currentCompletedLessons.includes(lesson.lesson_id) &&
-          lesson.lesson_id != this.indexLesson
+          lesson.lesson_id !== this.indexLesson
         ) {
           nextLessonTitle = this.lessonTitleShortener(lesson.ques);
           break;
@@ -418,7 +430,7 @@ export class LessonComponent implements OnInit {
     }
 
     if (
-      nextLessonTitle == "" &&
+      nextLessonTitle === "" &&
       !currentCompletedLessons.includes(this.indexLesson)
     ) {
       this.remainSingleLesson = this.indexLesson;

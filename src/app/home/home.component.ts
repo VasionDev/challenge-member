@@ -2,6 +2,8 @@ import { DataService } from "./../services/data.service";
 import { Component, OnInit } from "@angular/core";
 import { WordpressService } from "../services/wordpress.service";
 import { ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
+import { Location } from "@angular/common";
 
 let CompletedTools = [];
 let prerequisites = [];
@@ -31,7 +33,10 @@ export class HomeComponent implements OnInit {
   isOpen: any = true;
   logoutTo: any = "";
   homeParam = "";
+  catParam = "";
   currentAllLessonID = [];
+  currentAllLearnID = [];
+
 
   slideConfig = {
     slidesToShow: 1,
@@ -61,7 +66,9 @@ export class HomeComponent implements OnInit {
     private data: DataService,
     private wp: WordpressService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private translate: TranslateService,
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -78,40 +85,45 @@ export class HomeComponent implements OnInit {
       this.posts = data;
       let allLength = data.length;
       let totalLesson = 0;
-      let lastEndedPostLessons = [];
       this.currentAllLessonID = [];
-      let intersection = [];
+      this.currentAllLearnID = [];
+      let lastEndedPostLessons = [];
+      let intersectionLessonID = [];
+      let intersectionLearnID = [];
+
       while (allLength > 0) {
         totalLesson = totalLesson + data[--allLength].lesson.length;
       }
-
+      localStorage.removeItem("LastLesson");
       const tempIndex = JSON.parse(localStorage.getItem("LastLesson"));
       this.completedLesson = JSON.parse(localStorage.getItem("Lesson"));
+      this.completedIndex = JSON.parse(localStorage.getItem("Index"));
       let mainIndex: number;
 
       this.posts.forEach(element => {
         let arrayCopy = element.lesson;
+
+        if (!this.currentAllLearnID.includes(element.learnID)) {
+          this.currentAllLearnID.push(element.learnID);
+        }
+
         arrayCopy.forEach(element => {
           // console.log(element.lesson_id);
-          if(!this.currentAllLessonID.includes(element.lesson_id)) {
+          if (!this.currentAllLessonID.includes(element.lesson_id)) {
             this.currentAllLessonID.push(element.lesson_id);
           }
         });
       });
 
-      // this.currentAllLessonID.filter(value => this.completedLesson.includes(value));
-      
-      intersection = this.completedLesson.filter(value => this.currentAllLessonID.includes(value));
-      // console.log(this.posts,intersection);
-      // console.log(this.completedLesson);
-      // localStorage.setItem("Lesson", JSON.stringify(this.completedLesson));
-      /*let arrayCopy;
-      this.posts.forEach(element => {
-        arrayCopy = element.lesson;
-        arrayCopy.filter(value => this.completedLesson.includes(value.lesson_id))
-      });*/
+      intersectionLessonID = this.completedLesson.filter(value =>
+        this.currentAllLessonID.includes(value)
+      );
+      intersectionLearnID = this.completedIndex.filter(value =>
+        this.currentAllLearnID.includes(value)
+      );
 
-      //console.log('test', arrayCopy);
+      this.completedIndex = intersectionLearnID;
+      this.completedLesson = intersectionLessonID;
 
       if (tempIndex === null) {
         /*this.indexPost = this.posts[0].learnID;
@@ -151,7 +163,6 @@ export class HomeComponent implements OnInit {
 
       this.updateNextStartLesson(lastEndedPostLessons);
       // this.completedLesson = JSON.parse(localStorage.getItem('Lesson'));
-      this.completedIndex = JSON.parse(localStorage.getItem("Index"));
       // console.log(this.completedLesson.length, totalLesson);
       if (this.completedLesson !== null) {
         this.completePercent = (
@@ -164,6 +175,12 @@ export class HomeComponent implements OnInit {
       this.allComplete();
       this.route.queryParamMap.subscribe(params => {
         this.homeParam = params.get("lang");
+        // if (this.homeParam === null) {
+        //   this.translate.use("en");
+        // } else {
+        //   this.translate.use(this.homeParam);
+        // }
+        this.catParam = params.get("category");
 
         const pageName = params.get("page");
         const expLessonID = params.get("explesson");
@@ -179,10 +196,27 @@ export class HomeComponent implements OnInit {
         } else if (lessonID != null) {
           this.data.nameChange("LessonComponent");
         } else {
-          this.data.nameChange("HomeComponent");
+          // this.data.nameChange("HomeComponent");
         }
       });
     });
+    if (this.catParam !== "") {
+      this.getCategoryPosts(this.catParam);
+    }
+  }
+
+  getCategoryPosts(catSlug: string) {
+    const currentGuide = [];
+    this.posts.forEach((post: any) => {
+      if (post.hasOwnProperty("category")) {
+        post.category.forEach((category: any) => {
+          if (category.slug.startsWith(catSlug)) {
+            currentGuide.push(post);
+          }
+        });
+      }
+    });
+    this.data.dataChange(currentGuide);
   }
 
   updateNextStartLesson(lastEndedPostLessons) {
@@ -445,5 +479,20 @@ export class HomeComponent implements OnInit {
 
   toggleSidebar() {
     this.menuOpened = !this.menuOpened;
+  }
+
+  onClickHome() {
+    if (this.homeParam !== null) {
+      if (this.homeParam !== "en") {
+        this.router.navigate(["/"], {
+          queryParams: { lang: this.homeParam }
+        });
+      } else {
+        this.router.navigate(["/"]);
+      }
+    } else {
+      this.router.navigate(["/"]);
+    }
+    this.data.nameChange("CategoryComponent");
   }
 }
