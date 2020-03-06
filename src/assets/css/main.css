@@ -2035,9 +2035,9 @@ collapse-menu {
   height: 10px;
   width: 10px;
   margin-right: 15px;
-  -webkit-mask-image: url(../img/chevron-down.svg);
+  -webkit-mask-image: url(https://challenge.com/preview/wp-content/themes/pruvit-challenge/learning-member/assets/img/chevron-down.svg);
   -webkit-mask-size: cover;
-  mask-image: url(../img/chevron-down.svg);
+  mask-image: url(https://challenge.com/preview/wp-content/themes/pruvit-challenge/learning-member/assets/img/chevron-down.svg);
   mask-size: cover;
   transition: all .1s;
 }
@@ -2086,9 +2086,18 @@ collapse-menu {
   text-decoration: none;
 }
 
-
-
 .side__menu-challenge-cat {
+  position: relative;
+}
+
+
+/*-------------------------------*/
+
+
+.challenge__member--custom-nav {
+  margin-top: 16px;
+  padding: 0;
+  margin-bottom: 15px;
   position: relative;
 }
 

@@ -85,6 +85,7 @@
               <li *ngFor="let language of languages">
                 <a closeSidebar (click)="onClickLanguage(language)"><img src="{{ getLanguageIcon(language) }}"
                     alt="{{ language }}" class="member__language--icon">{{ getLanguageName(language) }}</a>
+
               </li>
             </ul>
           </div>
@@ -96,7 +97,7 @@
           <div class="panel-body side__menu--collapse-body">
             <ul class="side__menu--collapse-list">
               <div *ngFor="let category of categories">
-                <li class="side__menu--collapse-item" [class.active]="isCategoryItemActive(category.catSlug)"><a
+                <li closeSidebar class="side__menu--collapse-item pointer" [class.active]="isCategoryItemActive(category.catSlug)"><a
                     class="side__menu--collapse-link"
                     (click)="onCLickCategory(category.catSlug)">{{ category.catName }}</a>
                 </li>

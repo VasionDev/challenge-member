@@ -37,6 +37,7 @@ export class HomeComponent implements OnInit {
   currentAllLessonID = [];
   currentAllLearnID = [];
 
+
   slideConfig = {
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -89,6 +90,7 @@ export class HomeComponent implements OnInit {
       let lastEndedPostLessons = [];
       let intersectionLessonID = [];
       let intersectionLearnID = [];
+
       while (allLength > 0) {
         totalLesson = totalLesson + data[--allLength].lesson.length;
       }
@@ -164,7 +166,7 @@ export class HomeComponent implements OnInit {
       // console.log(this.completedLesson.length, totalLesson);
       if (this.completedLesson !== null) {
         this.completePercent = (
-          (100 * this.completedLesson.length) /
+          (100 * intersection.length) /
           totalLesson
         ).toFixed();
       } else {
