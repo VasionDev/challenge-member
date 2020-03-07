@@ -156,6 +156,9 @@ export class OptionsComponent implements OnInit {
     if (language === "zh-hans") {
       languageName = "Chinese (Simplified)";
     }
+    if (language === "es") {
+      languageName = "Spanish";
+    }
     return languageName;
   }
 
@@ -163,10 +166,24 @@ export class OptionsComponent implements OnInit {
     let languageFlag = "";
     if (language === "zh-hant" || language === "zh-hans") {
       languageFlag = "https://image.flaticon.com/icons/svg/2151/2151303.svg";
+    } else if (language === "es") {
+      languageFlag = "https://image.flaticon.com/icons/svg/206/206600.svg";
     } else {
       languageFlag = "https://image.flaticon.com/icons/svg/330/330425.svg";
     }
     return languageFlag;
+  }
+
+  getFlagIcon(language: any) {
+    let iconName = "";
+    if (language === "zh-hant" || language === "zh-hans") {
+      iconName = "flag-icon-chinese";
+    } else if (language === "es") {
+      iconName = "flag-icon-spanish";
+    } else {
+      iconName = "flag-icon-us";
+    }
+    return iconName;
   }
 
   onClickLanguage(language: any) {
@@ -186,7 +203,7 @@ export class OptionsComponent implements OnInit {
     // });
 
     // this.data.dataChange(day10Guide);
-    if (language === "zh-hant" || language === "zh-hans") {
+    if (language === "zh-hant" || language === "zh-hans" || language === "es") {
       this.router.navigate(["/"], { queryParams: { lang: language } });
       this.data.nameChange("CategoryComponent");
     } else {
