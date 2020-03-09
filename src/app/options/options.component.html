@@ -77,9 +77,8 @@
           <div class="btn-group" role="group">
             <a href="#" class="dropdown-toggle member__lenguage-btn" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
-              <span
-                [ngClass]=" (selectedLanguage === 'zh-hant' || selectedLanguage === 'zh-hans') ? 'flag-icon-chinese' : 'flag-icon-us' "
-                class="flag-icon">&nbsp;</span><i class="fal fa-angle-down member__lenguage-arrow"></i>
+              <span [ngClass]="getFlagIcon(selectedLanguage)" class="flag-icon">&nbsp;</span><i
+                class="fal fa-angle-down member__lenguage-arrow"></i>
             </a>
             <ul class="dropdown-menu custom__dropdown-menu">
               <li *ngFor="let language of languages">
