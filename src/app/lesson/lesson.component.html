@@ -27,7 +27,7 @@
               (click)="onClickLeft()">
               <img class="product-page-logo" alt="Brand"
                 src="https://challenge.com/preview/wp-content/themes/pruvit-challenge/learning-member/assets/img/challenge-member-desktop-logo.png">
-              <i class="fal fa-arrow-left"></i> 
+              <i class="fal fa-arrow-left"></i>
 
             </a>
           </div>
@@ -53,19 +53,21 @@
       <div class="container challenge__member--custom-nav">
 
         <div class="challenge__member--menu">
-          <button style="border: none;" (click)="onClickLeft()" type="button" class="challenge__member--mobile--button"> 
+          <button style="border: none;" (click)="onClickLeft()" type="button" class="challenge__member--mobile--button">
             <i style="color: #000" class="fal fa-home"></i>
           </button>
         </div>
 
         <div class="navbar-brand-logo text-center">
           <a class=" challenge__member--custom-navbar-brand pointer">
-            <img class="product-page-logo" alt="Brand" src="https://challenge.com/preview/wp-content/themes/pruvit-challenge/learning-member/assets/img/pruvit-logo-new-b.png">
+            <img class="product-page-logo" alt="Brand"
+              src="https://challenge.com/preview/wp-content/themes/pruvit-challenge/learning-member/assets/img/pruvit-logo-new-b.png">
           </a>
         </div>
 
         <div class="challenge__member--share">
-          <button style="border: none;" (click)="shareNavigatorAPI()" type="button" class="challenge__member--mobile--button share-btn"> 
+          <button style="border: none;" (click)="shareNavigatorAPI()" type="button"
+            class="challenge__member--mobile--button share-btn">
             <i style="color: #000" class="fal fa-upload"></i>
           </button>
         </div>
@@ -144,8 +146,10 @@
 
               <div class="chellenge__compleate--details-nav">
                 <ul>
-                  <li class="active"><a class="ch-member-rift-16-19 pointer">OVERVIEW</a></li>
-                  <li><a class="ch-member-rift-16-19 pointer" (click)="onClickResource()">RESOURCES</a></li>
+                  <li class="active"><a class="ch-member-rift-16-19 pointer">{{ 'lesson.overview' | translate }}</a>
+                  </li>
+                  <li><a class="ch-member-rift-16-19 pointer"
+                      (click)="onClickResource()">{{ 'lesson.resources' | translate }}</a></li>
                 </ul>
               </div>
             </div>
@@ -193,8 +197,8 @@
 
                     <button *ngIf="remainSingleLesson == ''" (click)="onClickLeft()" class="ch-btn-nextlesson">
                       <p>
-                        <span class="ch-btn-nextlesson--top">All steps are completed</span>
-                        <span class="ch-btn-nextlesson--bottom">Continue journey</span>
+                        <span class="ch-btn-nextlesson--top">{{ 'lesson.stepsCompleted' | translate }}</span>
+                        <span class="ch-btn-nextlesson--bottom">{{ 'lesson.continueJourney' | translate }}</span>
                       </p>
                     </button>
                   </ng-template>

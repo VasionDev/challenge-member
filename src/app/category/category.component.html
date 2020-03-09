@@ -30,16 +30,20 @@
         </nav> -->
         <nav class="navbar navbar-default challenge__member--custom-navbar">
           <div class="container challenge__member--custom-nav">
-    
+
             <div class="challenge__member--menu">
-              <button (click)="toggleSidebar()" type="button" class="challenge__member--desktop--button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-5" aria-expanded="false"> 
-                <img class="challenge__member--desktop--button-icon" src="https://challenge.com/preview/wp-content/themes/pruvit-challenge/learning-member/assets/img/challene-menu-desktop.png" alt="menu">
-              </button> 
+              <button (click)="toggleSidebar()" type="button" class="challenge__member--desktop--button"
+                data-toggle="collapse" data-target="#bs-example-navbar-collapse-5" aria-expanded="false">
+                <img class="challenge__member--desktop--button-icon"
+                  src="https://challenge.com/preview/wp-content/themes/pruvit-challenge/learning-member/assets/img/challene-menu-desktop.png"
+                  alt="menu">
+              </button>
             </div>
-    
+
             <div class="navbar-brand-logo text-center">
               <a class=" challenge__member--custom-navbar-brand pointer">
-                <img class="product-page-logo" alt="Brand" src="https://challenge.com/preview/wp-content/themes/pruvit-challenge/learning-member/assets/img/pruvit-logo-new-b.png">
+                <img class="product-page-logo" alt="Brand"
+                  src="https://challenge.com/preview/wp-content/themes/pruvit-challenge/learning-member/assets/img/pruvit-logo-new-b.png">
               </a>
             </div>
           </div>
@@ -102,7 +106,7 @@
                               <span
                                 *ngIf="getCompletePercentage(cat.posts) !== '100'">{{ getCompletePercentage(cat.posts) }}%</span>
                               <span class="span2" *ngIf="getCompletePercentage(cat.posts) === '100'">✅ </span>
-                              Completed</p>
+                              {{ 'category.completed' | translate }}</p>
                           </div>
                           <p class="challenge__discover--ready" *ngIf="getCompletePercentage(cat.posts) === '0'">Ready
                             to
