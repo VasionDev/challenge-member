@@ -42,7 +42,7 @@ export class ExperienceLessonComponent implements OnInit, AfterContentChecked, A
   benefitOBJ: any;
   videoURL: any = '';
   youtubeEmbedCode: any = '';
-  spinner = false;
+  spinner = true;
   userLoggedIn = false;
   redirectUrl: any;
   imageSelectedValue: any = 'option1';
@@ -93,6 +93,7 @@ export class ExperienceLessonComponent implements OnInit, AfterContentChecked, A
 
       if(Object.keys(res).length) {
         this.newUserData = res;
+        this.spinner = false;
       }else {
 
         this.wp.getUserExperience().subscribe((data: any) => {
@@ -101,6 +102,7 @@ export class ExperienceLessonComponent implements OnInit, AfterContentChecked, A
 
           } else {
             this.newUserData = JSON.parse(data);
+            this.spinner = false;
             this.selectedExpVideoAndImage();
           }
         },

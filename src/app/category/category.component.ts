@@ -14,7 +14,7 @@ export class CategoryComponent implements OnInit {
   postsData: any;
   currentLanguage = "en";
   categories = [];
-  userStatus = "promoter";
+  userStatus = "";
   menuOpened = false;
   userLoggedIn = true;
   logoutTo: any = "";

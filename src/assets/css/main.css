@@ -767,7 +767,7 @@ h6 {
   background-color: #ffffff;
   border-radius: 5px;
   padding: 14px 16px;
-  margin: 0 10px;
+  margin: 0 10px 20px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, .1);
 }
 
@@ -1332,15 +1332,27 @@ a:hover {
   }
 }
 
-@media only screen and (max-width: 1250px) and (min-width: 767px) {
+@media only screen and (max-width: 1249px) and (min-width: 810px) {
+
+  .section__challenge__compleate .slick-list.draggable {
+    min-width: 40%;
+  }
+}
+
+/*@media only screen and (max-width: 1250px) and (min-width: 767px) {
 
   .section__challenge__compleate .slick-list.draggable {
     min-width: 60%;
   }
+}*/
+
+
+@media only screen and (max-width: 809px) and (min-width: 767px) {
+
+  .section__challenge__compleate .slick-list.draggable {
+    min-width: 50%;
+  }
 }
-
-
-
 
 
 
