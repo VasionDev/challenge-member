@@ -1,19 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DataService } from './../services/data.service';
-import { WordpressService } from '../services/wordpress.service';
-import { ModalService } from './../services/modal.service';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { DataService } from "./../services/data.service";
+import { WordpressService } from "../services/wordpress.service";
+import { ModalService } from "./../services/modal.service";
 
-declare let apiUrl:any
+declare let apiUrl: any;
 
 @Component({
-  selector: 'app-experience',
-  templateUrl: './experience.component.html',
-  styleUrls: ['./experience.component.css']
+  selector: "app-experience",
+  templateUrl: "./experience.component.html",
+  styleUrls: ["./experience.component.css"]
 })
-
 export class ExperienceComponent implements OnInit {
-
   menuOpened: boolean = false;
   completePercent: any = 0;
   totalLesson = 7;
@@ -23,45 +21,46 @@ export class ExperienceComponent implements OnInit {
   submittedExpData: any;
   userLoggedIn = false;
   redirectUrl: any;
-  logoutTo: any = '';
+  logoutTo: any = "";
   expStatus: any = 0;
 
   slideConfig = {
-
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
     dots: false,
     centerMode: true,
-    centerPadding: '60px',
+    centerPadding: "60px",
     infinite: false,
     slickGoTo: 0,
-    responsive : [
+    responsive: [
       {
         breakpoint: 480,
         settings: {
           arrows: true,
-          prevArrow: '<button type="button" class="slick-prev-round"><i class="far fa-angle-left"></i></button>',
-          nextArrow: '<button type="button" class="slick-next-round"><i class="far fa-angle-right"></i></button>',
+          prevArrow:
+            '<button type="button" class="slick-prev-round"><i class="far fa-angle-left"></i></button>',
+          nextArrow:
+            '<button type="button" class="slick-next-round"><i class="far fa-angle-right"></i></button>',
           slidesToShow: 1
         }
       }
     ]
   };
 
-  constructor( 
-    private data: DataService, 
-    private router: Router, 
+  constructor(
+    private data: DataService,
+    private router: Router,
     private wp: WordpressService,
-    private modalService: ModalService) {  
-  }
+    private modalService: ModalService
+  ) {}
 
   ngOnInit() {
     // this.spinner = true;
     this.logoutTo = apiUrl;
 
-    if (JSON.parse(localStorage.getItem('signInStatus')) !== null) {
-      this.userLoggedIn = JSON.parse(localStorage.getItem('signInStatus'));
+    if (JSON.parse(localStorage.getItem("signInStatus")) !== null) {
+      this.userLoggedIn = JSON.parse(localStorage.getItem("signInStatus"));
     }
 
     this.wp.setUserLogin().subscribe((res: any) => {
@@ -70,37 +69,40 @@ export class ExperienceComponent implements OnInit {
     });
 
     this.data.currentExperience.subscribe((res: any) => {
-      if(Object.keys(res).length) {
+      if (Object.keys(res).length) {
         this.submittedExpData = JSON.stringify(res);
-      }else {
-        localStorage.removeItem('ExpLesson');
+      } else {
+        localStorage.removeItem("ExpLesson");
       }
     });
 
-    const user = JSON.parse(localStorage.getItem('experienceStatus'));
-    if (user === null || user === '') {
+    const user = JSON.parse(localStorage.getItem("experienceStatus"));
+    if (user === null || user === "") {
       this.spinner = true;
     } else {
-      this.wp.getUserExperience().subscribe((res: any) => {
-        
-        let result = JSON.parse(res);
-        if(result.error || result.exp_token_error) {
-          window.location.href = `
+      this.wp.getUserExperience().subscribe(
+        (res: any) => {
+          let result = JSON.parse(res);
+          if (result.error || result.exp_token_error) {
+            window.location.href = `
               https://pg-app-9dfh2kb0auoxwzcgrca8678kjc14dc.scalabl.cloud/v1/authorize?redirectURL=https://challenge.com/preview/member/`;
-        } else {
-          this.expStatus = result.status;
-          console.log(this.expStatus);
-          this.spinner = false;
-        }
-      },
-      (err) => {},
-      () => {
-      });
+          } else {
+            this.expStatus = result.status;
+            console.log(this.expStatus);
+            this.spinner = false;
+          }
+        },
+        err => {},
+        () => {}
+      );
     }
 
-    this.completedExpLesson = JSON.parse(localStorage.getItem('ExpLesson'));
+    this.completedExpLesson = JSON.parse(localStorage.getItem("ExpLesson"));
     if (this.completedExpLesson !== null) {
-      this.completePercent = ((100 * this.completedExpLesson.length) / this.totalLesson).toFixed();
+      this.completePercent = (
+        (100 * this.completedExpLesson.length) /
+        this.totalLesson
+      ).toFixed();
     } else {
       this.completedExpLesson = [];
     }
@@ -116,13 +118,13 @@ export class ExperienceComponent implements OnInit {
   beforeChange(e) {}
 
   onExperienceLesson(lessonID) {
-    this.router.navigate(['/'], {queryParams: {explesson: lessonID}});
-    this.data.nameChange('ExperienceLessonComponent');
+    this.router.navigate(["/"], { queryParams: { explesson: lessonID } });
+    this.data.nameChange("ExperienceLessonComponent");
   }
 
   isCompletedExpLesson(lessonID) {
-    if (this.completedExpLesson !== null ) {
-      if ( this.completedExpLesson.includes(lessonID)) {
+    if (this.completedExpLesson !== null) {
+      if (this.completedExpLesson.includes(lessonID)) {
         return true;
       } else {
         return false;
@@ -135,20 +137,22 @@ export class ExperienceComponent implements OnInit {
     this.submittedExpData = JSON.parse(this.submittedExpData);
     this.submittedExpData.submit = true;
     this.submittedExpData = JSON.stringify(this.submittedExpData);
-    this.wp.saveExperienceData(this.submittedExpData).subscribe((data: any)=>{
-      let result = JSON.parse(data);
-      console.log(result);
-      this.data.saveExperienceDataTemp(JSON.parse(data));
-      this.expStatus = result.status;
-      console.log(this.expStatus);
-    },
-    (err) => {
-      console.log(err);
-    },
-    ()=>{
-      this.spinner = false;
-      this.modalService.open('exp-save-modal');
-    });
+    this.wp.saveExperienceData(this.submittedExpData).subscribe(
+      (data: any) => {
+        let result = JSON.parse(data);
+        console.log(result);
+        this.data.saveExperienceDataTemp(JSON.parse(data));
+        this.expStatus = result.status;
+        console.log(this.expStatus);
+      },
+      err => {
+        console.log(err);
+      },
+      () => {
+        this.spinner = false;
+        this.modalService.open("exp-save-modal");
+      }
+    );
   }
 
   openSidebar() {
@@ -156,7 +160,7 @@ export class ExperienceComponent implements OnInit {
   }
 
   onCloseExpModal() {
-    this.modalService.close('exp-save-modal');
+    this.modalService.close("exp-save-modal");
   }
 
   toggleSidebar() {
@@ -164,10 +168,10 @@ export class ExperienceComponent implements OnInit {
   }
 
   onClickSignOut() {
-    localStorage.removeItem('signInStatus');
-    localStorage.removeItem('Index');
-    localStorage.removeItem('Lesson');
-    localStorage.removeItem('UserID');
+    localStorage.removeItem("signInStatus");
+    localStorage.removeItem("Index");
+    localStorage.removeItem("Lesson");
+    localStorage.removeItem("UserID");
     this.wp.logout().subscribe((data: any) => {
       // this.data.nameChange('AppComponent');
       window.location.href = this.logoutTo;
@@ -175,27 +179,26 @@ export class ExperienceComponent implements OnInit {
   }
 
   onShareStory() {
-
     let newVariable: any;
 
     newVariable = window.navigator;
     console.log(window.location.href);
     if (newVariable && newVariable.share) {
-      console.log('Web Share API is supported');
-      newVariable.share({
-        title: 'Member Experience',
-        text: '',
-        url: window.location.href
-      }).then(() => {
-        console.log('Thanks for sharing!');
-      })
-      .catch(err => {
-        console.log(`Couldn't share because of`, err.message);
-      });
+      console.log("Web Share API is supported");
+      newVariable
+        .share({
+          title: "Member Experience",
+          text: "",
+          url: window.location.href
+        })
+        .then(() => {
+          console.log("Thanks for sharing!");
+        })
+        .catch(err => {
+          console.log(`Couldn't share because of`, err.message);
+        });
     } else {
-      console.log('Fallback');
+      console.log("Fallback");
     }
-    
   }
-
 }
