@@ -72,7 +72,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     // this.checkNavigator();
-    // console.log(this.completePercent);
     this.logoutTo = apiUrl;
 
     this.nextStartLesson = {

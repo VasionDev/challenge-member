@@ -148,9 +148,10 @@ export class InviteComponent implements OnInit {
       } else if (lessonID != null) {
         this.data.nameChange("LessonComponent");
       } else {
-        this.data.nameChange("CategoryComponent");
+        // this.data.nameChange("CategoryComponent");
       }
     });
+    this.data.nameChange("CategoryComponent");
   }
 
   onClickHome() {

@@ -41,6 +41,7 @@ export class CategoryComponent implements OnInit {
       } else {
         this.currentLanguage = "en";
       }
+
       this.translate.use(this.currentLanguage);
       this.loadCategoryData();
       this.getCategoriesWithPosts();
