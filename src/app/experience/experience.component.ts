@@ -23,6 +23,7 @@ export class ExperienceComponent implements OnInit {
   redirectUrl: any;
   logoutTo: any = "";
   expStatus: any = 0;
+  refCode: any = '';
 
   slideConfig = {
     slidesToShow: 1,
@@ -58,6 +59,7 @@ export class ExperienceComponent implements OnInit {
   ngOnInit() {
     // this.spinner = true;
     this.logoutTo = apiUrl;
+    this.refCode = this.data.refCode;
 
     if (JSON.parse(localStorage.getItem("signInStatus")) !== null) {
       this.userLoggedIn = JSON.parse(localStorage.getItem("signInStatus"));
@@ -180,8 +182,10 @@ export class ExperienceComponent implements OnInit {
 
   onShareStory() {
     let newVariable: any;
-
     newVariable = window.navigator;
+    let experienceShareURL = 'https://challenge.com/preview/my-experience/?story='+this.refCode;
+    console.log(experienceShareURL);
+
     console.log(window.location.href);
     if (newVariable && newVariable.share) {
       console.log("Web Share API is supported");
@@ -189,7 +193,7 @@ export class ExperienceComponent implements OnInit {
         .share({
           title: "Member Experience",
           text: "",
-          url: window.location.href
+          url: experienceShareURL
         })
         .then(() => {
           console.log("Thanks for sharing!");
