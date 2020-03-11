@@ -4,6 +4,7 @@ import { ModalService } from "./../services/modal.service";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { trigger, transition, animate, style } from "@angular/animations";
+import { TranslateService } from "@ngx-translate/core";
 
 let IndexArray = [];
 let LessonArray = [];
@@ -48,7 +49,8 @@ export class LessonComponent implements OnInit {
     private wp: WordpressService,
     private route: ActivatedRoute,
     private router: Router,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit() {
@@ -64,6 +66,11 @@ export class LessonComponent implements OnInit {
       this.indexLesson = params.get("lesson");
       this.homeParam = params.get("lang");
       this.catParam = params.get("category");
+      if (this.homeParam === null) {
+        this.translate.use("en");
+      } else {
+        this.translate.use(this.homeParam);
+      }
     });
 
     this.wp.setUserLogin().subscribe((res: any) => {
@@ -100,31 +107,52 @@ export class LessonComponent implements OnInit {
   }
 
   onClickNewComplete(postID: any, lessonID: any, lessonList: any) {
-    // console.log(lessonList);
     this.completeChange(this.indexPost, this.indexLesson);
-    let currentCompletedLessons = JSON.parse(localStorage.getItem("Lesson"));
+    const currentCompletedLessons = JSON.parse(localStorage.getItem("Lesson"));
     if (currentCompletedLessons.includes(lessonID)) {
       console.log(lessonID, "already exists");
       for (const lesson of lessonList) {
         if (!currentCompletedLessons.includes(lesson.lesson_id)) {
-          this.router.navigate(["/"], {
-            queryParams: {
-              category: this.catParam,
-              module: postID,
-              lesson: lesson.lesson_id
-            }
-          });
+          if (this.homeParam !== "en") {
+            this.router.navigate(["/"], {
+              queryParams: {
+                lang: this.homeParam,
+                category: this.catParam,
+                module: postID,
+                lesson: lesson.lesson_id
+              }
+            });
+          } else {
+            this.router.navigate(["/"], {
+              queryParams: {
+                category: this.catParam,
+                module: postID,
+                lesson: lesson.lesson_id
+              }
+            });
+          }
           break;
         }
       }
     } else {
-      this.router.navigate(["/"], {
-        queryParams: {
-          category: this.catParam,
-          module: postID,
-          lesson: lessonID
-        }
-      });
+      if (this.homeParam !== "en") {
+        this.router.navigate(["/"], {
+          queryParams: {
+            lang: this.homeParam,
+            category: this.catParam,
+            module: postID,
+            lesson: lessonID
+          }
+        });
+      } else {
+        this.router.navigate(["/"], {
+          queryParams: {
+            category: this.catParam,
+            module: postID,
+            lesson: lessonID
+          }
+        });
+      }
     }
     window.scrollTo(0, 0);
   }

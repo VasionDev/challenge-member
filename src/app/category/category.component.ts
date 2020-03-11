@@ -2,6 +2,7 @@ import { WordpressService } from "./../services/wordpress.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { DataService } from "./../services/data.service";
 import { Component, OnInit } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
 
 declare let apiUrl: any;
 
@@ -23,7 +24,8 @@ export class CategoryComponent implements OnInit {
     private data: DataService,
     private route: ActivatedRoute,
     private wp: WordpressService,
-    private router: Router
+    private router: Router,
+    private translate: TranslateService
   ) {}
 
   ngOnInit() {
@@ -39,6 +41,8 @@ export class CategoryComponent implements OnInit {
       } else {
         this.currentLanguage = "en";
       }
+
+      this.translate.use(this.currentLanguage);
       this.loadCategoryData();
       this.getCategoriesWithPosts();
     });

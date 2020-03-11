@@ -37,7 +37,6 @@ export class HomeComponent implements OnInit {
   currentAllLessonID = [];
   currentAllLearnID = [];
 
-
   slideConfig = {
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -73,7 +72,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     // this.checkNavigator();
-    // console.log(this.completePercent);
     this.logoutTo = apiUrl;
 
     this.nextStartLesson = {
@@ -175,11 +173,11 @@ export class HomeComponent implements OnInit {
       this.allComplete();
       this.route.queryParamMap.subscribe(params => {
         this.homeParam = params.get("lang");
-        // if (this.homeParam === null) {
-        //   this.translate.use("en");
-        // } else {
-        //   this.translate.use(this.homeParam);
-        // }
+        if (this.homeParam === null) {
+          this.translate.use("en");
+        } else {
+          this.translate.use(this.homeParam);
+        }
         this.catParam = params.get("category");
 
         const pageName = params.get("page");
@@ -254,10 +252,19 @@ export class HomeComponent implements OnInit {
   }
 
   greetingUser() {
+    // this.translate.get("home").subscribe(translations => {
+    //   console.log(translations);
+    //   if (this.userName !== "") {
+    //     return "" + translations.keepGoing + ", " + this.userName + "!";
+    //   } else {
+    //     return "" + translations.keepGoing + "!";
+    //   }
+    // });
+    const translation = this.translate.instant("home");
     if (this.userName !== "") {
-      return "Keep going, " + this.userName + "!";
+      return "" + translation.keepGoing + ", " + this.userName + "!";
     } else {
-      return "Keep going!";
+      return "" + translation.keepGoing + "!";
     }
   }
 
