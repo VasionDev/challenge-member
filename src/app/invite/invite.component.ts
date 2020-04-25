@@ -8,7 +8,7 @@ import {
   transition,
   animate,
   style,
-  state
+  state,
 } from "@angular/animations";
 
 declare let apiUrl: any;
@@ -27,9 +27,9 @@ declare let apiUrl: any;
       transition(":enter", [style({ opacity: 0 }), animate(600)]),
 
       // fade out when destroyed. this could also be written as transition('void => *')
-      transition(":leave", animate(3000, style({ opacity: 0 })))
-    ])
-  ]
+      transition(":leave", animate(3000, style({ opacity: 0 }))),
+    ]),
+  ],
 })
 export class InviteComponent implements OnInit {
   inviteEmail: any;
@@ -86,7 +86,7 @@ export class InviteComponent implements OnInit {
     ) {
       let mailData = {
         email_to: this.inviteEmail,
-        share_url: this.invitePageURL
+        share_url: this.invitePageURL,
       };
       // let mailDataS = JSON.stringify(mailData);
       this.wp.sendMail(mailData).subscribe(
@@ -99,7 +99,7 @@ export class InviteComponent implements OnInit {
             response = "Email not sent";
           }
         },
-        err => {},
+        (err) => {},
         () => {
           this.getEmailNotification(response);
           setTimeout(() => {
@@ -140,7 +140,7 @@ export class InviteComponent implements OnInit {
   }
 
   onClickBack() {
-    this.route.queryParamMap.subscribe(params => {
+    this.route.queryParamMap.subscribe((params) => {
       const pageName = params.get("page");
       const lessonID = params.get("lesson");
       if (pageName != null) {
@@ -151,7 +151,8 @@ export class InviteComponent implements OnInit {
         // this.data.nameChange("CategoryComponent");
       }
     });
-    this.data.nameChange("CategoryComponent");
+    this.router.navigate(["/"]);
+    // this.data.nameChange("CategoryComponent");
   }
 
   onClickHome() {

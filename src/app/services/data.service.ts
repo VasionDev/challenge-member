@@ -27,6 +27,13 @@ export class DataService {
   private dataWithLanguages = new BehaviorSubject({});
   currentDataWithLanguages = this.dataWithLanguages.asObservable();
 
+  private libraryData = new BehaviorSubject({});
+  currentLibraryData = this.libraryData.asObservable();
+
+  libraryDataChange(data: any) {
+    this.libraryData.next(data);
+  }
+
   languagesChange(data: any) {
     this.languagesList.next(data);
   }
