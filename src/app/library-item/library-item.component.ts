@@ -15,6 +15,7 @@ export class LibraryItemComponent implements OnInit {
   itemPost: any;
   favorited = false;
   spinner = false;
+  spinnerDesktop = false;
 
   constructor(
     private data: DataService,
@@ -66,6 +67,7 @@ export class LibraryItemComponent implements OnInit {
 
   onClickFavorite() {
     this.spinner = true;
+    this.spinnerDesktop = true;
     let LessonArray = JSON.parse(localStorage.getItem("Lesson"));
     let IndexArray = JSON.parse(localStorage.getItem("Index"));
     const Favorites = JSON.parse(localStorage.getItem("Favorites"));
@@ -102,6 +104,7 @@ export class LibraryItemComponent implements OnInit {
             if (value.success === true) {
               console.log("saved");
               this.spinner = false;
+              this.spinnerDesktop = false;
               if (favoriteStatus) {
                 this.favorited = true;
               } else {

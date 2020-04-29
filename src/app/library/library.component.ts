@@ -22,7 +22,7 @@ export class LibraryComponent implements OnInit {
 
   ngOnInit() {
     this.loadLibraryData();
-    // this.saveFavoritesData();
+    this.saveFavoritesData();
   }
 
   loadLibraryData() {
@@ -109,6 +109,10 @@ export class LibraryComponent implements OnInit {
               const successValue = JSON.parse(res);
               if (successValue.success === true) {
                 console.log("initial favorite saved");
+                localStorage.setItem(
+                  "Favorites",
+                  JSON.stringify(initialFavorites)
+                );
               } else {
                 console.log("not saved");
               }

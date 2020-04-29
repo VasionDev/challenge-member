@@ -6,7 +6,7 @@
     <header>
       <div class="challenge__member">
         <nav class="navbar navbar-default challenge__member--custom-navbar">
-          <div class="container-fluid challenge__member--custom-nav">
+          <div class="container challenge__member--custom-nav">
             <div class="challenge__member--menu">
               <button
                 type="button"
@@ -14,6 +14,7 @@
                 data-toggle="collapse"
                 data-target="#bs-example-navbar-collapse-5"
                 aria-expanded="false"
+                (click)="toggleSidebar()"
               >
                 <img
                   class="challenge__member--desktop--button-icon"
@@ -31,6 +32,16 @@
                   src="https://challenge.com/preview/wp-content/themes/pruvit-challenge/learning-member/assets/img/pruvit-logo-new-b.png"
                 />
               </a>
+            </div>
+
+            <div class="clallenge__member-fevorit">
+              <button
+                class="challenge__member-fevorit-icon share-btn"
+                type="button"
+                (click)="onCLickFavorite()"
+              >
+                <i style="color: #000;" class="far fa-heart"></i>
+              </button>
             </div>
           </div>
         </nav>

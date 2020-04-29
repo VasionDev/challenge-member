@@ -2415,7 +2415,7 @@ collapse-menu {
 /* ----------- library module ----------- */
 
 /* import library styles here */
-@font-face {
+/* @font-face {
   font-family: "SFProText";
   src: url("./SFProText-Regular/SFProText-Regular.eot?#iefix")
       format("embedded-opentype"),
@@ -2425,7 +2425,7 @@ collapse-menu {
       format("svg");
   font-weight: normal;
   font-style: normal;
-}
+} */
 
 .cg-library {
   padding-top: 0;
@@ -2438,7 +2438,7 @@ collapse-menu {
   max-width: 420px;
   margin: 0 auto;
   padding-bottom: 20px;
-  padding-top: 15px;
+  padding-top: 25px;
 }
 
 .cg-library__search {
@@ -2466,7 +2466,7 @@ collapse-menu {
   border: none;
   box-shadow: none;
   height: 36px;
-  font-family: "SFProText";
+  font-family: acumin-pro, sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 17px;
@@ -2699,4 +2699,21 @@ collapse-menu {
   padding: 4px 10px 5px;
   border-radius: 5px;
   text-decoration: none;
+}
+
+/* ----------- 28-4-2020 ------------ */
+.clallenge__member-fevorit {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.challenge__member-fevorit-icon.share-btn {
+  background: transparent;
+  border: none;
+}
+
+.challenge__member--go-back {
+  background-color: transparent;
+  border: none;
 }
