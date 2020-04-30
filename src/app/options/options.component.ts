@@ -10,7 +10,7 @@ declare let apiUrl: any;
 @Component({
   selector: "app-options",
   templateUrl: "./options.component.html",
-  styleUrls: ["./options.component.css"]
+  styleUrls: ["./options.component.css"],
 })
 export class OptionsComponent implements OnInit {
   menuOpened = false;
@@ -44,7 +44,7 @@ export class OptionsComponent implements OnInit {
     if (JSON.parse(localStorage.getItem("signInStatus")) !== null) {
       this.userLoggedIn = JSON.parse(localStorage.getItem("signInStatus"));
     }
-    this.route.queryParams.subscribe(res => {
+    this.route.queryParams.subscribe((res) => {
       this.selectedLanguage = res.lang;
       if (this.selectedLanguage === undefined) {
         this.selectedLanguage = "en";
@@ -91,10 +91,10 @@ export class OptionsComponent implements OnInit {
     postData.forEach((post: any) => {
       if (post.hasOwnProperty("category")) {
         post.category.forEach((category: any) => {
-          if (!this.categories.some(item => item.catSlug === category.slug)) {
+          if (!this.categories.some((item) => item.catSlug === category.slug)) {
             this.categories.push({
               catName: category.name,
-              catSlug: category.slug
+              catSlug: category.slug,
             });
           }
         });
@@ -145,7 +145,10 @@ export class OptionsComponent implements OnInit {
   }
 
   onInvite() {
-    this.data.nameChange("InviteComponent");
+    // this.data.nameChange("InviteComponent");
+    this.router.navigate(["/"], {
+      queryParams: { module: "invite" },
+    });
   }
 
   getLanguageName(language: string) {
@@ -283,6 +286,13 @@ export class OptionsComponent implements OnInit {
   }
 
   onClickOption() {
-    this.data.nameChange("CategoryComponent");
+    // this.data.nameChange("CategoryComponent");
+    this.router.navigate(["/"]);
+  }
+
+  onClickLibrary() {
+    this.router.navigate(["/"], {
+      queryParams: { module: "library" },
+    });
   }
 }
